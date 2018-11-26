@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Finaciamentos</title>
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css' />
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<h2><a href="#">Financimento com tabela SAC e Prime </a></h1>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="#">Homepage</a></li>
+					<li><a href="#">Sobre</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="banner">
+			<div class="content"><img src="images/tabela-price.jpg" width="1000" height="300" alt="" /></div>
+		</div>
+	</div>
+	<!-- end #header -->
+	
+	<div id="page">
+		<div id="content">
+			<div class="post">
+				<h2 class="title"><a href="#">Calcule seu financiamento </a></h2>
+				<div style="clear: both;">&nbsp;</div>
+				<div class="entry">
+
+	<form method="POST" action="res.php">
+	<div id = "tab">
+	<label >Escolha a tabela para a base de calculo:</label>
+	<input  type="radio" name="tabela" value="Price" class="radio">
+	<label for="price"><strong>Price</strong>  </label>
+	<input type="radio" name="tabela" value="SAC" class="radio">
+	<label for="SAC"><strong>SAC</strong></label>
+	<br><br>
+
+	<div id="e1"><label>Valor financiado: R$</label>
+	<input type=number name ="Pt"step=0.01 /></div>
+	
+
+	<div id="e2"><label>Número de prestações: </label>
+	<input type="number" name="n"></div>
+
+	<div id="e3"><label>Taxa de Juros (% ao mês): </label>
+	<input type="number" name="i"></div>
+
+	<button type="submit" class="calcular" > Calcular</button>
+
+	</div>
+
+				</div>
+			</div>
+			
+			
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+		<!-- Fim do conteúdo -->
+		<div id="sidebar">
+			<ul>
+				<li>
+					<h2>Categoria</h2>
+					<ul>
+						<li><a href="form.php">Matemátiquinha</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!-- end #sidebar -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- Fim da página --> 
+</div>
+<div id="footer">
+	<p>&copy; Todos os direitos reservados. Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>. Photos by <a href="http://fotogrph.com/">Fotogrph</a>.</p>
+</div>
+<!-- Fim rodapé -->
+</body>
+</html>
