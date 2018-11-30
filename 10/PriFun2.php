@@ -89,7 +89,7 @@ table#t01 {
 	$suprema = 0;
 
 
-
+	$P0 = $P[0];
 
 
 
@@ -102,6 +102,117 @@ table#t01 {
 	$j=0;
 
 	// Métodos
+
+		function FRC($i, $n){
+
+			$base = 1 + $i;
+			$res = pow($base, $n);
+
+			$FRC = ($res*$i)/($res-1);
+			return $FRC;
+
+		}
+
+		function FVA($i, $n){
+
+			$base = 1 + $i;
+			$res = pow($base, $n);
+
+			$FVA = ($res-1)/($res*$i);
+			return $FVA;
+		}
+
+
+
+		function fPrice1 ($P0, $i, $n){
+
+			$FRC = FRC($i, $n);
+			$R = $P0 * $FRC;
+			return $R;
+
+		}
+
+		function fPrice2 ($R, $i, $n, $t){
+			$res = $n - $t;
+			$FVA = FVA($i, $res);
+			$Pt1 = $R * $FVA;
+			return $Pt1;
+		}
+
+		function fPrice3 ($R, $i, $n, $t){
+			$res = $n - $t + 1;
+			$FVA = FVA($i, $res);
+			$Ptmenos1 = $R * $FVA;
+			return $Ptmenos1;
+		}
+
+		function fPrice4 ($i, $Ptmenos1){
+
+			$Jt = $i * $Ptmenos1;
+			return $Jt;
+
+		}
+
+		function fPrice5 ($R, $i, $P0){
+
+			$A1 = $R - $i * $P0;
+			return $A1;
+
+		}
+
+		function fPrice6 ($A1, $i, $t){
+
+			$base = 1 + $i;
+			$exp = $t - 1; 
+			$res = pow($base, $exp);
+			$At = $A1 * $res;
+			return $At;
+
+		}
+
+		function fPrice7 ($R, $i, $n, $t){
+
+			$SomaAac = $R * FVA($i, $n) - FVA($i, ($n - $t));
+			return $SomaAac;
+		}
+
+		function fPrice8 ($R, $i, $n, $t, $K){
+
+			$SomaAacttmaisk = $R * FVA($i, $n - $t) - FVA($i, ($n - $t - $K));
+			return $SomaAacttmaisk;
+		}
+
+		function fPrice9 ($R, $t, $i, $n){
+
+			$SomaJact = $R * ($t - FVA($i, $n) - FVA($i, ($n - $t)));
+			return $SomaJact;
+		}
+
+		function fPrice10 ($R, $K, $SomaAacttmaisk){
+
+			$SomaJacttmaisk = $R * $K - $SomaAacttmaisk;
+			return $SomaJacttmaisk;
+		}
+
+		$FRC = FRC($i, $n);
+		$FVA = FVA($i, $n);
+
+		$R = fPrice1 ($P0, $i, $n);
+		$Pt1 = fPrice2 ($R, $i, $n, $t);
+		$Ptmenos1 = fPrice3 ($R, $i, $n, $t);
+		$Jt = fPrice4 ($i, $Ptmenos1);
+		$A1 = fPrice5 ($R, $i, $P0);
+		$At = fPrice6 ($A1, $i, $t);
+		$SomaAac = fPrice7 ($R, $i, $n, $t);
+		$SomaAacttmaisk = fPrice8 ($R, $i, $n, $t, $K);
+		$SomaJact = fPrice9 ($R, $t, $i, $n);
+		$SomaJacttmaisk = fPrice10 ($R, $K, $SomaAacttmaisk);
+
+
+
+
+
+
 
 		$var = (1+$i);
 		$var = pow($var, $n);
@@ -148,21 +259,15 @@ table#t01 {
 			echo "</tr>\n";
 			echo "<table>\n";
 
-			
-			if ($fun == $j ) {
-				
-				$suprema = $P[$t];
-
-			}
-			
-
 			//Incrementos
 			$j++;
 			$at++;
 			$jt++;
 		}
 
-		echo "<br>O saldo devedor no período ".$fun." = R$".$suprema;
+		$suprema = fPrice2 ($R, $i, $n, $fun);
+
+		echo "<br>O saldo devedor no período ".$fun." = R$".$suprema = round($suprema,2);
 
 	}
 

@@ -66,12 +66,10 @@ table#t01 {
 
 
 	/* -------Ìndices---------*/
-	$rt=0; // Prestação
 	$jt=0; // Juros
 	$at=0; // Amortização
 	$t=0; // Saldo Devedor
-
-	$K = 0;
+	$K =0;
 
 	// Valores da tabela Price
 	$Juros=[];
@@ -100,9 +98,114 @@ table#t01 {
 	if ($tabela=='Price') {
 	//contador
 
-	$j=0;
+	$j = 0;
 
 	// Métodos
+
+		function FRC($i, $n){
+
+			$base = 1 + $i;
+			$res = pow($base, $n);
+
+			$FRC = ($res*$i)/($res-1);
+			return $FRC;
+
+		}
+
+		function FVA($i, $n){
+
+			$base = 1 + $i;
+			$res = pow($base, $n);
+
+			$FVA = ($res-1)/($res*$i);
+			return $FVA;
+		}
+
+
+
+		function fPrice1 ($P0, $i, $n){
+
+			$FRC = FRC($i, $n);
+			$R = $P0 * $FRC;
+			return $R;
+
+		}
+
+		function fPrice2 ($R, $i, $n, $t){
+			$res = $n - $t;
+			$FVA = FVA($i, $res);
+			$Pt1 = $R * $FVA;
+			return $Pt1;
+		}
+
+		function fPrice3 ($R, $i, $n, $t){
+			$res = $n - $t + 1;
+			$FVA = FVA($i, $res);
+			$Ptmenos1 = $R * $FVA;
+			return $Ptmenos1;
+		}
+
+		function fPrice4 ($i, $Ptmenos1){
+
+			$Jt = $i * $Ptmenos1;
+			return $Jt;
+
+		}
+
+		function fPrice5 ($R, $i, $P0){
+
+			$A1 = $R - $i * $P0;
+			return $A1;
+
+		}
+
+		function fPrice6 ($A1, $i, $t){
+
+			$base = 1 + $i;
+			$exp = $t - 1; 
+			$res = pow($base, $exp);
+			$At = $A1 * $res;
+			return $At;
+
+		}
+
+		function fPrice7 ($R, $i, $n, $t){
+
+			$SomaAac = $R * FVA($i, $n) - FVA($i, ($n - $t));
+			return $SomaAac;
+		}
+
+		function fPrice8 ($R, $i, $n, $t, $K){
+
+			$SomaAacttmaisk = $R * FVA($i, $n - $t) - FVA($i, ($n - $t - $K));
+			return $SomaAacttmaisk;
+		}
+
+		function fPrice9 ($R, $t, $i, $n){
+
+			$SomaJact = $R * ($t - FVA($i, $n) - FVA($i, ($n - $t)));
+			return $SomaJact;
+		}
+
+		function fPrice10 ($R, $K, $SomaAacttmaisk){
+
+			$SomaJacttmaisk = $R * $K - $SomaAacttmaisk;
+			return $SomaJacttmaisk;
+		}
+
+		$FRC = FRC($i, $n);
+		$FVA = FVA($i, $n);
+
+		$R = fPrice1 ($P0, $i, $n);
+		$Pt1 = fPrice2 ($R, $i, $n, $t);
+		$Ptmenos1 = fPrice3 ($R, $i, $n, $t);
+		$Jt = fPrice4 ($i, $Ptmenos1);
+		$A1 = fPrice5 ($R, $i, $P0);
+		$At = fPrice6 ($A1, $i, $t);
+		$SomaAac = fPrice7 ($R, $i, $n, $t);
+		$SomaAacttmaisk = fPrice8 ($R, $i, $n, $t, $K);
+		$SomaJact = fPrice9 ($R, $t, $i, $n);
+		$SomaJacttmaisk = fPrice10 ($R, $K, $SomaAacttmaisk);
 
 		$var = (1+$i);
 		$var = pow($var, $n);
@@ -114,7 +217,7 @@ table#t01 {
 		$Prestação = round($Prestação,2);
 		//----------------------
 		// Imprimir
-		echo "  Saldo devedor = R$".$P[$t].",00<br><br>";
+		echo "  Saldo devedor inicial = R$".$P[$t].",00<br><br>";
 		$j++;
 
 
@@ -308,7 +411,6 @@ table#t01 {
 
   ?>
 
-
 <!-- Termina aqui o php -->
 	
  <!-- Concluido -->	
@@ -368,8 +470,6 @@ table#t01 {
 	</form>
 	</div>
 
-
-
  <!-- SAC  -->
  	<div class="column">	
  	<h3>Calculos Avançados para tabela SAC</h3>
@@ -427,9 +527,7 @@ table#t01 {
 
 </div>
 				</div>
-			</div>
-			
-			
+			</div>	
 			<div >&nbsp;</div>
 		</div>
 		<!-- Fim do conteúdo -->
